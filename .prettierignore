@@ -1,0 +1,4 @@
+.coverage
+.log
+iisnode
+node_modules
