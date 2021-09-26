@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Express, Request } from "express";
 import QExpressRouteHandlerValidator, { IQExpressRouteHandlerValidatorResponse } from "./QExpressRouteHandlerValidator";
 import QExpressRouteHandlerResolver, { IQExpressRouteHandlerResolverResponse } from "./QExpressRouteHandlerResolver";
 
@@ -19,29 +19,25 @@ export interface IQExpressRouteHandlerCallback {
   >;
 }
 
-export default class QExpressRouteHandler {
-  constructor() {}
+export const createQExpressRouteHandler = (
+  method: string,
+  path: string,
+  handler: IQExpressRouteHandlerCallback,
+  options: IQExpressRouteHandlerOptions,
+): IQExpressRouteHandler => {
+  if (!options) options = {};
+  options.requiresAuth = !!options.requiresAuth;
 
-  public static createRoute(
-    method: string,
-    path: string,
-    handler: IQExpressRouteHandlerCallback,
-    options: IQExpressRouteHandlerOptions,
-  ): IQExpressRouteHandler {
-    if (!options) options = {};
-    options.requiresAuth = !!options.requiresAuth;
+  const handlerOverlaid = async (
+    req: Request,
+  ): Promise<IQExpressRouteHandlerResolverResponse | IQExpressRouteHandlerValidatorResponse> => {
+    return await handler(req, new QExpressRouteHandlerValidator(req), new QExpressRouteHandlerResolver());
+  };
 
-    const handlerOverlaid = async (
-      req: Request,
-    ): Promise<IQExpressRouteHandlerResolverResponse | IQExpressRouteHandlerValidatorResponse> => {
-      return await handler(req, new QExpressRouteHandlerValidator(req), new QExpressRouteHandlerResolver());
-    };
-
-    return {
-      method,
-      path,
-      handler: handlerOverlaid,
-      options,
-    };
-  }
-}
+  return {
+    method,
+    path,
+    handler: handlerOverlaid,
+    options,
+  };
+};
