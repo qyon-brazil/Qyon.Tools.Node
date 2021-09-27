@@ -26,7 +26,7 @@ export const createQExpressRouteHandler = (
   options: IQExpressRouteHandlerOptions,
 ): IQExpressRouteHandler => {
   if (!options) options = {};
-  options.requiresAuth = !!options.requiresAuth;
+  options.requiresAuth = options.requiresAuth === false ? false : true;
 
   const handlerOverlaid = async (
     req: Request,

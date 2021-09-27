@@ -42,7 +42,7 @@ var QExpressRouteHandlerResolver_1 = require("./QExpressRouteHandlerResolver");
 var createQExpressRouteHandler = function (method, path, handler, options) {
     if (!options)
         options = {};
-    options.requiresAuth = !!options.requiresAuth;
+    options.requiresAuth = options.requiresAuth === false ? false : true;
     var handlerOverlaid = function (req) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
