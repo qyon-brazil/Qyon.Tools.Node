@@ -33,7 +33,7 @@ export default class QObjectValidator implements IQObjectValidator {
     return this.errors.length > 0;
   }
 
-  public addValidation(propPath: string, callback: IQObjectValidatorAddValidationCallback) {
+  public addValidation(propPath: string, callback: IQObjectValidatorAddValidationCallback): IQObjectValidator {
     const val = new QValidation(_get(this._object, propPath));
     callback(val);
     this._validations.push(val);

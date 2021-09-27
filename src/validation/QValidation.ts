@@ -22,14 +22,14 @@ export default class QValidation implements IQValidation {
     return this._errors.length > 0;
   }
 
-  public isRequired(message: string) {
+  public isRequired(message: string): IQValidation {
     if (!this._value || this._value.length <= 0) {
       this._errors.push(message);
     }
     return this;
   }
 
-  isEmail(message: string) {
+  isEmail(message: string): IQValidation {
     var reg = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
     if (!reg.test(this._value)) {
       this.errors.push(message);
