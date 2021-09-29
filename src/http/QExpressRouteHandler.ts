@@ -1,4 +1,4 @@
-import { Express, Request } from "express";
+import { Request } from "express";
 import QExpressRouteHandlerValidator, { IQExpressRouteHandlerValidatorResponse } from "./QExpressRouteHandlerValidator";
 import QExpressRouteHandlerResolver, { IQExpressRouteHandlerResolverResponse } from "./QExpressRouteHandlerResolver";
 
@@ -13,8 +13,29 @@ export interface IQExpressRouteHandlerOptions {
   requiresAuth?: boolean;
 }
 
+export interface IQExpressRouteHandlerRequest extends Request {
+  account: IQExpressRouteHandlerRequestAccount;
+}
+
+export interface IQExpressRouteHandlerRequestAccount {
+  company?: IQExpressRouteHandlerRequestAccountCompany;
+  auth?: IQExpressRouteHandlerRequestAccountAuth;
+}
+
+export interface IQExpressRouteHandlerRequestAccountCompany {
+  id?: number;
+  alias?: string;
+}
+
+export interface IQExpressRouteHandlerRequestAccountAuth {
+  accessToken: string;
+  email: string;
+  cognitoSub: string;
+  identifiers: any;
+}
+
 export interface IQExpressRouteHandlerCallback {
-  (req: Request, val: QExpressRouteHandlerValidator, res: QExpressRouteHandlerResolver): Promise<
+  (req: IQExpressRouteHandlerRequest, val: QExpressRouteHandlerValidator, res: QExpressRouteHandlerResolver): Promise<
     IQExpressRouteHandlerResolverResponse | IQExpressRouteHandlerValidatorResponse
   >;
 }
@@ -31,7 +52,11 @@ export const createQExpressRouteHandler = (
   const handlerOverlaid = async (
     req: Request,
   ): Promise<IQExpressRouteHandlerResolverResponse | IQExpressRouteHandlerValidatorResponse> => {
-    return await handler(req, new QExpressRouteHandlerValidator(req), new QExpressRouteHandlerResolver());
+    return await handler(
+      req as IQExpressRouteHandlerRequest,
+      new QExpressRouteHandlerValidator(req),
+      new QExpressRouteHandlerResolver(),
+    );
   };
 
   return {
