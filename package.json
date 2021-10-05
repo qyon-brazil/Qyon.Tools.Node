@@ -1,7 +1,7 @@
 {
   "name": "qyon-tools-node",
   "displayName": "qyon-tools-node",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -16,6 +16,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qyon-brazil/Qyon.Tools.Node.git"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   },
   "keywords": [],
   "author": "",
