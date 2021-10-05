@@ -1,8 +1,9 @@
 {
-  "name": "qyon-tools-node",
-  "displayName": "qyon-tools-node",
-  "version": "1.1.1",
-  "description": "",
+  "name": "@qyon-brazil/qyon-tools-node",
+  "displayName": "@qyon-brazil/qyon-tools-node",
+  "description": "Qyon - Components lib",
+  "author": "@Qyon",
+  "version": "1.1.2",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
@@ -18,10 +19,11 @@
     "url": "git+https://github.com/qyon-brazil/Qyon.Tools.Node.git"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com/qyon-brazil"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "components"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/qyon-brazil/Qyon.Tools.Node/issues"
