@@ -2,6 +2,7 @@ export interface IQValidation {
   errors: string[];
   hasError: boolean;
   isRequired(message: string): IQValidation;
+  isNumber(message: string): IQValidation;
   isEmail(message: string): IQValidation;
 }
 
@@ -23,8 +24,20 @@ export default class QValidation implements IQValidation {
   }
 
   public isRequired(message: string): IQValidation {
-    if (!this._value || this._value.length <= 0) {
+    if (
+      !this._value ||
+      this._value.length <= 0 ||
+      this._value.trim() === "null" ||
+      this._value.trim() === "undefined"
+    ) {
       this._errors.push(message);
+    }
+    return this;
+  }
+
+  public isNumber(message: string): IQValidation {
+    if (isNaN(Number(this._value))) {
+      this.errors.push(message);
     }
     return this;
   }
