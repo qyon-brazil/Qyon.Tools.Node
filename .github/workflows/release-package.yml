@@ -16,9 +16,11 @@ jobs:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
       - run: npm config set username qyondevops
-      - run: npm config set //npm.pkg.github.com/:_authToken ${{secrets.NODE_AUTH_TOKEN}}
+      - run: npm config set //npm.pkg.github.com/:_authToken ${{secrets.GITHUB_TOKEN}}
       - run: npm config set email devops@qyon.com.br
       - run: npm install
       - run: npm ci
       - run: npm run build
       - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
