@@ -26,9 +26,9 @@ export default class QValidation implements IQValidation {
   public isRequired(message: string): IQValidation {
     if (
       !this._value ||
-      this._value.length <= 0 ||
-      this._value.trim() === "null" ||
-      this._value.trim() === "undefined"
+      this._value?.length <= 0 ||
+      this._value?.toString().trim() === "null" ||
+      this._value?.toString().trim() === "undefined"
     ) {
       this._errors.push(message);
     }
